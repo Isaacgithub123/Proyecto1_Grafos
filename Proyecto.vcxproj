@@ -141,6 +141,9 @@
   <ItemGroup>
     <ClCompile Include="Proyecto.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Grafo.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
