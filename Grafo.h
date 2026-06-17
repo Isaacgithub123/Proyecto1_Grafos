@@ -1,21 +1,22 @@
 #pragma once
-#include "LinkedList.h"
+#include <list>
+#include "Pair.h"  
 
-using namespace std;
-
+template <typename T>
 class Grafo {
 private:
-    int cantidadNodos;
-    list<int>* adyacencias;
+    int V;                          // Número de vértices
+    std::list<Pair<int, T>>* ListaAdy;  // Arreglo dinámico de listas de Pair
+    // Pair<destino, peso>
+
 public:
-    Grafo(int n) {
-        cantidadNodos = n;
-        adyacencias = new list<int>[n];
+    // Constructor
+    Grafo(int vertices) {
+        V = vertices;
+        ListaAdy = new std::list<Pair<int, T>>[V];
     }
 
+    // Destructor
     ~Grafo() {
-        delete[] adyacencias;
+        delete[] ListaAdy;
     }
-
-    void agregarArista(int origen, int destino) {
-     
