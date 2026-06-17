@@ -17,7 +17,7 @@ private:
         ListaAdy[u].push_back(Pair<int, T>(v, peso));
         ListaAdy[v].push_back(Pair<int, T>(u, peso));
     }
-    
+
     void eliminarAristaAux(int u, int v) {
         ListaAdy[u].remove_if([v](const Pair<int, T>& arista) {
             return arista.key == v;
@@ -45,7 +45,7 @@ public:
         delete[] ListaAdy;
     }
 
-   
+
     void agregarArista(int u, int v, T peso) {
         if (u < 0 || u >= V || v < 0 || v >= V) {
             throw runtime_error("Vértice fuera de rango");
@@ -56,7 +56,7 @@ public:
         agregarAristaAux(u, v, peso);
     }
 
-    
+
 
 
     bool existeArista(int u, int v) const {
@@ -66,9 +66,9 @@ public:
         return existeAristaAux(u, v);
     }
 
-   
 
-  
+
+
     void eliminarArista(int u, int v) {
         if (u < 0 || u >= V || v < 0 || v >= V) {
             throw runtime_error("Vértice fuera de rango");
@@ -79,3 +79,4 @@ public:
         eliminarAristaAux(u, v);
         eliminarAristaAux(v, u);  // Eliminar en ambos sentidos 
     }
+};
