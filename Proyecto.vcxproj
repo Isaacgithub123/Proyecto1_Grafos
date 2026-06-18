@@ -142,6 +142,8 @@
     <ClCompile Include="Proyecto.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BSTNode.h" />
+    <ClInclude Include="BSTree.h" />
     <ClInclude Include="Grafo.h" />
     <ClInclude Include="Pair.h" />
   </ItemGroup>

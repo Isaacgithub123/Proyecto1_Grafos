@@ -48,7 +48,7 @@ public:
 
     void agregarArista(int u, int v, T peso) {
         if (u < 0 || u >= V || v < 0 || v >= V) {
-            throw runtime_error("Vértice fuera de rango");
+            throw runtime_error("Nodo fuera de rango");
         }
         if (existeAristaAux(u, v)) {
             throw runtime_error("Arista duplicada");
@@ -71,12 +71,12 @@ public:
 
     void eliminarArista(int u, int v) {
         if (u < 0 || u >= V || v < 0 || v >= V) {
-            throw runtime_error("Vértice fuera de rango");
+            throw runtime_error("Nodo fuera de rango");
         }
         if (!existeAristaAux(u, v)) {
             throw runtime_error("Arista no encontrada");
         }
         eliminarAristaAux(u, v);
-        eliminarAristaAux(v, u);  // Eliminar en ambos sentidos 
+        eliminarAristaAux(v, u);  // Eliminar los dos 
     }
 };
