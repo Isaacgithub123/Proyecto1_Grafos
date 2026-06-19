@@ -1,0 +1,74 @@
+#pragma once
+#include <iostream>
+#include <stdexcept>
+#include "Node.h"
+#include "Queue.h"
+
+using std::cout;
+using std::endl;
+using std::runtime_error;
+
+template <typename E>
+class LinkedQueue : public Queue<E> {
+private:
+	Node<E>* front;
+	Node<E>* back;
+	int size;
+
+public:
+	LinkedQueue() {
+		back = front = new Node<E>();
+		size = 0;
+	}
+	~LinkedQueue() {
+		clear();
+		delete front;
+	}
+	void enqueue(E element) {
+		back = back->element = new Node<E>(element);
+		size++;
+	}
+	E dequeue() {
+		if (size == 0)
+			throw runtime_error("Queue is empty");
+		E result = front->next->element;
+		Node<E>* temp = front->next;
+		front->next = temp->next;
+		delete temp;
+		if (size == 1)
+			back = front;
+		size--;
+		return result;
+	}
+	E frontValue() {
+		if (size == 0)
+			throw runtime_error("Queue is empty.");
+		return front->next->element;
+	}
+	void clear() {
+		while (front->next != nullptr) {
+			Node<E>* temp = front->next;
+			front->next = temp->next;
+			delete temp;
+		}
+		size = 0;
+		back = front;
+	}
+	bool isEmpty() {
+		return size == 0;
+	}
+	int getSize() {
+		return size;
+	}
+	void print() {
+		cout << "[";
+		Node<E>* temp = front->next;
+		while (temp != nullptr) {
+			cout << temp->element;
+			if (current->next != nullptr)
+				cout << ", ";
+		}
+		cout << "]" << endl;
+	}
+};
+
