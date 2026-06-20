@@ -139,14 +139,15 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ArrayQueue.cpp" />
     <ClCompile Include="Proyecto.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArrayQueue.h" />
+    <ClInclude Include="ArrayStack.h" />
     <ClInclude Include="BSTNode.h" />
     <ClInclude Include="BSTree.h" />
     <ClInclude Include="Grafo.h" />
-    <ClInclude Include="LinkedQueue.h" />
-    <ClInclude Include="LinkedStack.h" />
     <ClInclude Include="MinHeap.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Pair.h" />
