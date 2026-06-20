@@ -147,6 +147,7 @@
     <ClInclude Include="Grafo.h" />
     <ClInclude Include="LinkedQueue.h" />
     <ClInclude Include="LinkedStack.h" />
+    <ClInclude Include="MinHeap.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Pair.h" />
     <ClInclude Include="Queue.h" />
