@@ -54,7 +54,7 @@ public:
 	bool isEmpty() {
 		return size == 0;
 	}
-	int getSize() {
+	int getSize() {  
 		return size;
 	}
 	void print() {
