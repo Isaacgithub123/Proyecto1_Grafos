@@ -41,7 +41,27 @@ public:
         delete nodos;
         delete arcos;
     }
+ 
+    void generarNodosAleatorios(int ancho, int alto) {
+        for (int i = 0; i < cantidadNodos; i++) {
+            double x = rand() % ancho;
+            double y = rand() % alto;
+            agregarNodo(GNode(i, x, y));
+        }
+    }
 
+    void generarArcos(double distanciaMax, int maxVecinos) {
+        for (int i = 0; i < cantidadNodos; i++) {
+            for (int j = i + 1; j < cantidadNodos; j++) {
+                GNode n1 = getNodo(i);
+                GNode n2 = getNodo(j);
+                double distancia = getDistancia(n1, n2);
+                if (distancia <= distanciaMax && getCantidadVecinos(i) < maxVecinos && getCantidadVecinos(j) < maxVecinos){
+                    agregarArco(i,j,distancia);
+                }
+            }
+        }
+    }
 
     void agregarArco(int nOrigen, int nDestino, double peso) {
         listaAdy->goToPos(nOrigen);
