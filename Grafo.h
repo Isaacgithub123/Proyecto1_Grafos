@@ -7,7 +7,6 @@
 #include "ArrayQueue.h"
 #include "ArrayStack.h"
 
-using namespace std;
 
 template <typename T>
 class Grafo {

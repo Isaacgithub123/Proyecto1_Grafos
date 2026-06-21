@@ -139,7 +139,6 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ArrayQueue.cpp" />
     <ClCompile Include="Proyecto.cpp" />
   </ItemGroup>
   <ItemGroup>
