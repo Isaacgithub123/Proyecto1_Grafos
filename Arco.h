@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+
 
 class Arco {
 public:
@@ -17,6 +19,16 @@ public:
         this->peso = peso;
     }
 
+
+
+    bool operator==(const Arco& other) const {
+        return peso == other.peso;
+    }
+
+    bool operator!=(const Arco& other) const {
+        return peso != other.peso;
+    }
+
     bool operator<(const Arco& other) const {
         return peso < other.peso;
     }
@@ -29,5 +41,10 @@ public:
     }
     bool operator>=(const Arco& other) const {
         return peso >= other.peso;
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const Arco& a) {
+        os << "(" << a.origen << "," << a.destino << "," << a.peso << ")";
+        return os;
     }
 };

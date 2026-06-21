@@ -11,7 +11,7 @@ public:
 		this->next = next;
 	}
 	Node(Node<E>* next = nullptr) {
-		this->element = next;
+		this->next = next;
 	}
 };
 
