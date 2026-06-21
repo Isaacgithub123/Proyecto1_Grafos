@@ -1,82 +1,58 @@
 #pragma once
-#include <list>
 #include <stdexcept>
 #include <iostream>
 #include "Pair.h"  
+#include "GNode.h"
+#include "Arco.h"
+#include "LinkedList.h"
+#include "ArrayList.h"
 
-using namespace std;
 
-template <typename T>
 class Grafo {
 private:
-    int V;                          // Número de vértices
-    std::list<Pair<int, T>>* ListaAdy;  // Arreglo dinámico de listas de Pair
-    // Pair<destino, peso>
 
-    void agregarAristaAux(int u, int v, T peso) {
-        ListaAdy[u].push_back(Pair<int, T>(v, peso));
-        ListaAdy[v].push_back(Pair<int, T>(u, peso));
-    }
+    int cantidadNodos;
+    List<GNode>* nodos; 
+    List<Arco>* arcos; // para Kruskal
+    ArrayList<LinkedList<Pair<int, double>>*>* listaAdy; // para BFS, DFS, PRIM Y DIJKASTRA
 
-    void eliminarAristaAux(int u, int v) {
-        ListaAdy[u].remove_if([v](const Pair<int, T>& arista) {
-            return arista.key == v;
-            });
-    }
-
-    bool existeAristaAux(int u, int v) const {
-        for (const auto& arista : ListaAdy[u]) {
-            if (arista.key == v) {
-                return true;
-            }
-        }
-        return false;
-    }
 
 public:
     // Constructor
-    Grafo(int vertices) {
-        V = vertices;
-        ListaAdy = new std::list<Pair<int, T>>[V];
+    Grafo(int n) {
+        cantidadNodos = n;
+        nodos = new ArrayList<GNode>();
+        arcos = new LinkedList<Arco>();
+        listaAdy = new ArrayList<LinkedList<Pair<int, double>>*>(n);
+        for (int i = 0; i < n; i++) {
+            listaAdy->append(new LinkedList<Pair<int, double>>());
+        }
+
     }
 
     // Destructor
     ~Grafo() {
-        delete[] ListaAdy;
+        for (int i = 0; i < cantidadNodos; i++) {
+            listaAdy->goToPos(i);
+            delete listaAdy->getElement();
+        }
+        delete listaAdy;
+        delete nodos;
+        delete arcos;
     }
 
 
-    void agregarArista(int u, int v, T peso) {
-        if (u < 0 || u >= V || v < 0 || v >= V) {
-            throw runtime_error("Nodo fuera de rango");
-        }
-        if (existeAristaAux(u, v)) {
-            throw runtime_error("Arista duplicada");
-        }
-        agregarAristaAux(u, v, peso);
+    void agregarArco(int nOrigen, int nDestino, double peso) {
+        if (nOrigen < 0 || nOrigen >= cantidadNodos)
+            throw runtime_error("Nodo origen invalido.");
+        if (nDestino < 0 || nDestino >= cantidadNodos)
+            throw runtime_error("Nodo destino invalido.");
+        listaAdy->goToPos(nOrigen);
+        LinkedList<Pair<int, double>>* vecinos = listaAdy->getElement();
+        vecinos->append(Pair<int, double>(nDestino, peso));
+        listaAdy->goToPos(nDestino);
+        vecinos = listaAdy->getElement();
+        vecinos->append(Pair<int, double>(nOrigen, peso));
     }
 
-
-
-
-    bool existeArista(int u, int v) const {
-        if (u < 0 || u >= V || v < 0 || v >= V) {
-            return false;
-        }
-        return existeAristaAux(u, v);
-    }
-
-
-
-
-    void eliminarArista(int u, int v) {
-        if (u < 0 || u >= V || v < 0 || v >= V) {
-            throw runtime_error("Nodo fuera de rango");
-        }
-        if (!existeAristaAux(u, v)) {
-            throw runtime_error("Arista no encontrada");
-        }
-        eliminarAristaAux(u, v);
-        eliminarAristaAux(v, u);  // Eliminar los dos 
-    }
 };

@@ -20,4 +20,6 @@ public:
         this->y = y;
         visited = false;
     }
+
+
 };

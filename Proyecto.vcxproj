@@ -142,11 +142,16 @@
     <ClCompile Include="Proyecto.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Arco.h" />
+    <ClInclude Include="ArrayList.h" />
     <ClInclude Include="BSTNode.h" />
     <ClInclude Include="BSTree.h" />
+    <ClInclude Include="GNode.h" />
     <ClInclude Include="Grafo.h" />
+    <ClInclude Include="LinkedList.h" />
     <ClInclude Include="LinkedQueue.h" />
     <ClInclude Include="LinkedStack.h" />
+    <ClInclude Include="List.h" />
     <ClInclude Include="MinHeap.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Pair.h" />
