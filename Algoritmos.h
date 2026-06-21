@@ -53,9 +53,9 @@ public:
                 Pair<int, double> p = vecinos->getElement();
                 int vecino = p.key;
                 if (!g.visitado(vecino)) {
-                    g.marcarVisitado(v);
+                    g.marcarVisitado(vecino);
                     arbol.append(Arco(actual, vecino, 0.0));
-                    pila.push(v);
+                    pila.push(vecino);
                 }
                 vecinos->next();
             }

@@ -88,6 +88,8 @@ int main() {
     int numNodos, anchoVentana, altoVentana;
     double distanciaMax;
     int maxVecinos;
+    int nodoDestino = -1;
+    bool nodoDestinoFlag = false;
 
     cout << "----- Configuracion del grafo -----" << endl;
     cout << "Cantidad de nodos: ";
@@ -155,6 +157,23 @@ int main() {
                         hayResultado = false;
                     }
                 }
+                else if (mousePressed->button == sf::Mouse::Button::Right) {
+                    sf::Vector2i mousePos = mousePressed->position;
+                    nodoDestino = -1;
+                    nodoDestinoFlag = false;
+                    for (int i = 0; i < grafo.getCantidadNodos(); ++i) {
+                        GNode nodo = grafo.getNodo(i);
+                        float dx = static_cast<float>(nodo.x) - mousePos.x;
+                        float dy = static_cast<float>(nodo.y) - mousePos.y;
+                        float dist = sqrt(dx * dx + dy * dy);
+                        if (dist <= 20.f) {
+                            nodoDestino = i;
+                            nodoDestinoFlag = true;
+                            cout << "Destino seleccionado: " << i << endl;
+                            break;
+                        }
+                    }
+                }
             }
             else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
                 if (!nodoSeleccionadoFlag) {
@@ -205,7 +224,44 @@ int main() {
                     hayResultado = true;
                     delete orden;
                 }
-
+                // Tecla D: Dijkstra
+                if (keyPressed->code == sf::Keyboard::Key::D) {
+                    if (!nodoDestinoFlag) {
+                        cout << "Primero selecciona un destino con clic derecho." << endl;
+                        continue;
+                    }
+                    cout << "Ejecutando Dijkstra desde " << origen << " hasta " << nodoDestino << endl;
+                    LinkedList<Arco> camino;
+                    double* dist;
+                    int* padre;
+                    Algoritmos::Dijkstra(grafo, origen, nodoDestino, camino, dist, padre);
+                    arcosResaltados.clear();
+                    camino.goToStart();
+                    while (!camino.atEnd()) {
+                        arcosResaltados.push_back(camino.getElement());
+                        camino.next();
+                    }
+                    coloresNodos.clear();
+                    hayResultado = true;
+                    cout << "Distancia total: " << dist[nodoDestino] << endl;
+                    delete[] dist;
+                    delete[] padre;
+                }
+                // Tecla P: Prim
+                else if (keyPressed->code == sf::Keyboard::Key::P) {
+                    cout << "Ejecutando Prim desde nodo " << origen << endl;
+                    LinkedList<Arco> arbol;
+                    Algoritmos::Prim(grafo, origen, arbol);
+                    arcosResaltados.clear();
+                    arbol.goToStart();
+                    while (!arbol.atEnd()) {
+                        arcosResaltados.push_back(arbol.getElement());
+                        arbol.next();
+                    }
+                    coloresNodos.clear();
+                    hayResultado = true;
+                    cout << "Prim completado. Arcos en el arbol: " << arcosResaltados.size() << endl;
+                }
                 // Tecla C: Limpiar resultados
                 else if (keyPressed->code == sf::Keyboard::Key::C) {
                     coloresNodos.clear();
