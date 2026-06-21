@@ -102,12 +102,5 @@ public:
 		return size;
 	}
 	void print() {
-		//cout << "[";
-		//for (int i = 0; i < size; i++) {
-			//cout << elements[i];
-			//if (i != size - 1)
-				//cout << ", ";
-		//}
-		//cout << "]" << endl;
 	}
 };

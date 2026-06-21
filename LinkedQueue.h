@@ -25,7 +25,8 @@ public:
 		delete front;
 	}
 	void enqueue(E element) {
-		back = back->element = new Node<E>(element);
+		back->next = new Node<E>(element);
+		back = back->next;
 		size++;
 	}
 	E dequeue() {
@@ -62,11 +63,12 @@ public:
 	}
 	void print() {
 		cout << "[";
-		Node<E>* temp = front->next;
+		Node<E>* temp = front->next; 
 		while (temp != nullptr) {
 			cout << temp->element;
-			if (current->next != nullptr)
+			if (temp->next != nullptr) 
 				cout << ", ";
+			temp = temp->next; 
 		}
 		cout << "]" << endl;
 	}
