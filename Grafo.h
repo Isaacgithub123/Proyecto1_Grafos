@@ -2,9 +2,10 @@
 #include <list>
 #include <stdexcept>
 #include <iostream>
-#include <queue>
 #include "Pair.h"
 #include "BSTree.h"
+#include "ArrayQueue.h"
+#include "ArrayStack.h"
 
 using namespace std;
 
@@ -43,13 +44,13 @@ private:
             padre[i] = -1;
         }
 
-        queue<int> q;
+        ArrayQueue<int> cola(V);
         visitado[origen] = true;
         distancia[origen] = 0;
-        q.push(origen);
+        cola.enqueue(origen);
 
-        while (!q.empty()) {
-            int u = q.front(); q.pop();
+        while (!cola.isEmpty()) {
+            int u = cola.dequeue();
 
             if (maxDist != -1 && distancia[u] >= maxDist)
                 continue;
@@ -60,7 +61,54 @@ private:
                     visitado[v] = true;
                     distancia[v] = distancia[u] + 1;
                     padre[v] = u;
-                    q.push(v);
+                    cola.enqueue(v);
+                }
+            }
+        }
+
+        BSTree<Pair<int, int>> arbol;
+        for (int i = 0; i < V; i++) {
+            if (padre[i] != -1) {
+                arbol.insert(Pair<int, int>(padre[i], i));
+            }
+        }
+
+        delete[] visitado;
+        delete[] distancia;
+        delete[] padre;
+
+        return arbol;
+    }
+
+    BSTree<Pair<int, int>> DFS_Aux(int origen, int maxDist) const {
+        bool* visitado = new bool[V];
+        int* distancia = new int[V];
+        int* padre = new int[V];
+
+        for (int i = 0; i < V; i++) {
+            visitado[i] = false;
+            distancia[i] = -1;
+            padre[i] = -1;
+        }
+
+        ArrayStack<int> pila(V);
+        visitado[origen] = true;
+        distancia[origen] = 0;
+        pila.push(origen);
+
+        while (!pila.isEmpty()) {
+            int u = pila.pop();
+
+            if (maxDist != -1 && distancia[u] >= maxDist)
+                continue;
+
+            for (const auto& arista : ListaAdy[u]) {
+                int v = arista.key;
+                if (!visitado[v]) {
+                    visitado[v] = true;
+                    distancia[v] = distancia[u] + 1;
+                    padre[v] = u;
+                    pila.push(v);
                 }
             }
         }
@@ -126,5 +174,13 @@ public:
         if (maxDist < -1)
             throw runtime_error("Distancia máxima no puede ser menor que -1");
         return BFS_Aux(origen, maxDist);
+    }
+
+    BSTree<Pair<int, int>> DFS(int origen, int maxDist = -1) const {
+        if (origen < 0 || origen >= V)
+            throw runtime_error("Origen fuera de rango");
+        if (maxDist < -1)
+            throw runtime_error("Distancia máxima no puede ser menor que -1");
+        return DFS_Aux(origen, maxDist);
     }
 };
