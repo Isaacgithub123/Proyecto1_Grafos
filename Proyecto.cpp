@@ -43,10 +43,10 @@ int main() {
                 cout << "  " << p.key << " -> " << p.value << endl;
                 lista->next();
             }
-            delete lista;   // borra el LinkedList creado en getElements()
+            delete lista;   
         }
 
-        // También puedes probar el método print() de BSTree si quieres
+        
         cout << "\nUsando BSTree::print():\n";
         arbolBFS.print();
 
