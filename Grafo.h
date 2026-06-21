@@ -7,6 +7,7 @@
 #include "ArrayQueue.h"
 #include "ArrayStack.h"
 
+using namespace std;   // <--- AÑADE ESTA LÍNEA
 
 template <typename T>
 class Grafo {
