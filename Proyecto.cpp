@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Grafo.h"
+#include "LinkedList.h"  
 
 using namespace std;
 
@@ -18,35 +19,42 @@ void mostrarGrafo(const Grafo<T>& g) {
 }
 
 int main() {
-    Grafo<int> g(6);
-    g.agregarArista(0, 1, 5);
-    g.agregarArista(0, 2, 3);
-    g.agregarArista(1, 3, 2);
-    g.agregarArista(2, 4, 1);
-    g.agregarArista(3, 4, 4);
-    g.agregarArista(3, 5, 7);
+    try {
+        Grafo<int> g(6);
+        g.agregarArista(0, 1, 5);
+        g.agregarArista(0, 2, 3);
+        g.agregarArista(1, 3, 2);
+        g.agregarArista(2, 4, 1);
+        g.agregarArista(3, 4, 4);
+        g.agregarArista(3, 5, 7);
 
-    mostrarGrafo(g);
+        mostrarGrafo(g);
 
-    cout << "\n--- BFS desde 0 (sin límite) ---\n";
-    BSTree<Pair<int, int>> arbolBFS = g.BFS(0);
-    cout << "Árbol BFS (padre -> hijo):\n";
-    arbolBFS.print();
+        cout << "\n--- BFS desde 0 (sin límite) ---\n";
+        BSTree<Pair<int, int>> arbolBFS = g.BFS(0);
+        cout << "Tamaño del árbol BFS: " << arbolBFS.getSize() << endl;
 
-    cout << "\n--- DFS desde 0 (sin límite) ---\n";
-    BSTree<Pair<int, int>> arbolDFS = g.DFS(0);
-    cout << "Árbol DFS (padre -> hijo):\n";
-    arbolDFS.print();
+        List<Pair<int, int>>* lista = arbolBFS.getElements();
+        if (lista) {
+            cout << "Árbol BFS (padre -> hijo):\n";
+            lista->goToStart();
+            while (!lista->atEnd()) {
+                Pair<int, int> p = lista->getElement();
+                cout << "  " << p.key << " -> " << p.value << endl;
+                lista->next();
+            }
+            delete lista;   // borra el LinkedList creado en getElements()
+        }
 
-    cout << "\n--- BFS desde 0 (distancia máxima = 2) ---\n";
-    BSTree<Pair<int, int>> arbolBFS2 = g.BFS(0, 2);
-    cout << "Árbol BFS (padre -> hijo):\n";
-    arbolBFS2.print();
+        // También puedes probar el método print() de BSTree si quieres
+        cout << "\nUsando BSTree::print():\n";
+        arbolBFS.print();
 
-    cout << "\n--- DFS desde 3 (distancia máxima = 1) ---\n";
-    BSTree<Pair<int, int>> arbolDFS2 = g.DFS(3, 1);
-    cout << "Árbol DFS (padre -> hijo):\n";
-    arbolDFS2.print();
+    }
+    catch (const exception& e) {
+        cerr << "Error: " << e.what() << endl;
+        return 1;
+    }
 
     return 0;
 }

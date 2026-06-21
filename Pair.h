@@ -20,7 +20,7 @@ public:
     Pair(K key, V value) : key(key), value(value) {}
 
     bool operator==(const Pair<K, V>& other) const {
-        return key == other.key;
+        return key == other.key && value == other.value;
     }
 
     bool operator!=(const Pair<K, V>& other) const {

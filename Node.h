@@ -3,16 +3,15 @@
 template <typename E>
 class Node {
 public:
-	E element;
-	Node<E>* next;
+    E element;
+    Node<E>* next;
 
-	Node(E element, Node<E>* next = nullptr) {
-		this->element = element;
-		this->next = next;
-	}
-	Node(Node<E>* next = nullptr) {
-		this->element = next;
-	}
+    Node(E element, Node<E>* next = nullptr) {
+        this->element = element;
+        this->next = next;
+    }
+
+        
+    Node() : element(E()), next(nullptr) {}
 };
-
 

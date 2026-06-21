@@ -1,6 +1,7 @@
 #pragma once
 #include "BSTNode.h"
 #include "List.h"
+#include "LinkedList.h"   
 #include <iostream>
 #include <stdexcept>
 
@@ -64,7 +65,7 @@ private:
         if (current == nullptr)
             return;
         getElementsAux(current->left, list);
-        list->insertBack(current->element);
+        list->append(current->element);   // <--- append, no insertBack
         getElementsAux(current->right, list);
     }
 
@@ -97,7 +98,7 @@ public:
     }
 
     List<E>* getElements() {
-        List<E>* list = new List<E>();
+        List<E>* list = new LinkedList<E>();   // <--- instancia concreta
         getElementsAux(root, list);
         return list;
     }

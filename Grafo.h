@@ -7,7 +7,7 @@
 #include "ArrayQueue.h"
 #include "ArrayStack.h"
 
-using namespace std;   // <--- AÑADE ESTA LÍNEA
+using namespace std;   
 
 template <typename T>
 class Grafo {
@@ -160,7 +160,8 @@ public:
         eliminarAristaAux(v, u);
     }
 
-    int getV() const { return V; }
+    int getV() const {
+        return V; }
 
     std::list<Pair<int, T>> getVecinos(int u) const {
         if (u < 0 || u >= V)
