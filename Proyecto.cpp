@@ -29,24 +29,24 @@ int main() {
     mostrarGrafo(g);
 
     cout << "\n--- BFS desde 0 (sin límite) ---\n";
-    BSTree<Pair<int, int>> arbol1 = g.BFS(0);
-    cout << "Árbol de expansión BFS (padre -> hijo):\n";
-    arbol1.print();
+    BSTree<Pair<int, int>> arbolBFS = g.BFS(0);
+    cout << "Árbol BFS (padre -> hijo):\n";
+    arbolBFS.print();
+
+    cout << "\n--- DFS desde 0 (sin límite) ---\n";
+    BSTree<Pair<int, int>> arbolDFS = g.DFS(0);
+    cout << "Árbol DFS (padre -> hijo):\n";
+    arbolDFS.print();
 
     cout << "\n--- BFS desde 0 (distancia máxima = 2) ---\n";
-    BSTree<Pair<int, int>> arbol2 = g.BFS(0, 2);
-    cout << "Árbol de expansión BFS (padre -> hijo):\n";
-    arbol2.print();
+    BSTree<Pair<int, int>> arbolBFS2 = g.BFS(0, 2);
+    cout << "Árbol BFS (padre -> hijo):\n";
+    arbolBFS2.print();
 
-    cout << "\n--- BFS desde 0 (distancia máxima = 1) ---\n";
-    BSTree<Pair<int, int>> arbol3 = g.BFS(0, 1);
-    cout << "Árbol de expansión BFS (padre -> hijo):\n";
-    arbol3.print();
-
-    cout << "\n--- BFS desde 3 (sin límite) ---\n";
-    BSTree<Pair<int, int>> arbol4 = g.BFS(3);
-    cout << "Árbol de expansión BFS (padre -> hijo):\n";
-    arbol4.print();
+    cout << "\n--- DFS desde 3 (distancia máxima = 1) ---\n";
+    BSTree<Pair<int, int>> arbolDFS2 = g.DFS(3, 1);
+    cout << "Árbol DFS (padre -> hijo):\n";
+    arbolDFS2.print();
 
     return 0;
 }
