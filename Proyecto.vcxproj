@@ -144,7 +144,7 @@
       <EnableSegmentHeap>true</EnableSegmentHeap>
     </Manifest>
     <PreBuildEvent>
-      <Command>xcopy /Y "C:\SFML\bin\*.dll" "$(OutDir)"</Command>
+      <Command>xcopy /Y "$(ProjectDir)external\SFML\bin\*.dll" "$(OutDir)"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
