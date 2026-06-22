@@ -15,7 +15,7 @@ private:
     int cantidadNodos;
     List<GNode>* nodos; 
     List<Arco>* arcos; // para Kruskal
-    ArrayList<LinkedList<Pair<int, double>>*>* listaAdy; // para BFS, DFS, PRIM Y DIJKASTRA
+    ArrayList<LinkedList<Pair<int, double>>*>* listaAdy; // para BFS, DFS, PRIM Y 
 
 
 public:

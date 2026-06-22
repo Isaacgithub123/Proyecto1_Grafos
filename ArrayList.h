@@ -89,16 +89,16 @@ public:
 		if (pos > 0)
 			pos--;
 	}
-	bool atStart() {
+	bool atStart() const {
 		return pos == 0;
 	}
-	bool atEnd() {
+	bool atEnd() const {
 		return pos == size;
 	}
 	int getPos() {
 		return pos;
 	}
-	int getSize() {
+	int getSize() const {
 		return size;
 	}
 	void print() {

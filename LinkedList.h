@@ -99,10 +99,10 @@ public:
 			current = temp;
 		}
 	}
-	bool atStart() {
+	bool atStart() const {
 		return current == head;
 	}
-	bool atEnd() {
+	bool atEnd() const {
 		return current == tail;
 	}
 	int getPos() {
@@ -114,7 +114,7 @@ public:
 		}
 		return i;
 	}
-	int getSize() {
+	int getSize() const {
 		return size;
 	}
 	void print() {

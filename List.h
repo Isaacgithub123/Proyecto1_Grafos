@@ -18,10 +18,10 @@ public:
 	virtual void goToPos(int pos) = 0;
 	virtual void next() = 0;
 	virtual void previous() = 0;
-	virtual bool atStart() = 0;
-	virtual bool atEnd() = 0;
+	virtual bool atStart() const = 0;
+	virtual bool atEnd() const = 0;
 	virtual int getPos() = 0;
-	virtual int getSize() = 0;
+	virtual int getSize() const = 0;
 	virtual void print() = 0;
 };
 

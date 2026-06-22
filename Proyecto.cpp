@@ -1,24 +1,22 @@
 #include <iostream>
 #include <ctime>
-#include <vector>
 #include <string>
 #include <SFML/Graphics.hpp>
 #include "Grafo.h"
 #include "Algoritmos.h"
+#include "LinkedList.h"
 
 using namespace std;
 
-// Variables globales para ver resultados
-vector<sf::Color> coloresNodos;
-vector<Arco> arcosResaltados;
+// Variables globales para 
+LinkedList<Arco> arcosResaltados;
 bool hayResultado = false;
 int nodoOrigen = -1;
 
 // Función para dibujar el grafo 
 void dibujarGrafo(sf::RenderWindow& window, Grafo& grafo,
     sf::Font& font,
-    const vector<sf::Color>& coloresNodosExtra = {},
-    const vector<Arco>& arcosExtra = {}) {
+    const LinkedList<Arco>& arcosExtra) {
     // Dibujar arcos normales (gris)
     sf::VertexArray lineas(sf::PrimitiveType::Lines);
     List<Arco>* arcos = grafo.getArcos();
@@ -36,11 +34,14 @@ void dibujarGrafo(sf::RenderWindow& window, Grafo& grafo,
         arcos->next();
     }
     window.draw(lineas);
-
     // Dibujar arcos resaltados (si hay)
-    if (!arcosExtra.empty()) {
+    if (arcosExtra.getSize() > 0) {  // <--- CORREGIDO
         sf::VertexArray lineasResaltadas(sf::PrimitiveType::Lines);
-        for (const Arco& a : arcosExtra) {
+        // Recorrer la LinkedList manualmente (no tiene iteradores)
+        LinkedList<Arco>* lista = const_cast<LinkedList<Arco>*>(&arcosExtra);
+        lista->goToStart();
+        while (!lista->atEnd()) {
+            Arco a = lista->getElement();
             GNode n1 = grafo.getNodo(a.origen);
             GNode n2 = grafo.getNodo(a.destino);
             sf::Vertex v1(sf::Vector2f(static_cast<float>(n1.x), static_cast<float>(n1.y)));
@@ -49,19 +50,16 @@ void dibujarGrafo(sf::RenderWindow& window, Grafo& grafo,
             v2.color = sf::Color::Yellow;
             lineasResaltadas.append(v1);
             lineasResaltadas.append(v2);
+            lista->next();
         }
         window.draw(lineasResaltadas);
     }
 
     // Dibujar nodos
-
     for (int i = 0; i < grafo.getCantidadNodos(); i++) {
         GNode nodo = grafo.getNodo(i);
         sf::CircleShape circulo(20.f);
         sf::Color colorNodo = sf::Color::Blue;
-        if (!coloresNodosExtra.empty() && i < coloresNodosExtra.size()) {
-            colorNodo = coloresNodosExtra[i];
-        }
         circulo.setFillColor(colorNodo);
         circulo.setOutlineColor(sf::Color::Black);
         circulo.setOutlineThickness(2.f);
@@ -69,7 +67,6 @@ void dibujarGrafo(sf::RenderWindow& window, Grafo& grafo,
         window.draw(circulo);
 
         // Etiqueta (número)
-
         sf::Text texto(font);
         texto.setString(std::to_string(nodo.id));
         texto.setCharacterSize(14);
@@ -80,6 +77,7 @@ void dibujarGrafo(sf::RenderWindow& window, Grafo& grafo,
         window.draw(texto);
     }
 }
+
 
 int main() {
     srand(static_cast<unsigned>(time(nullptr)));
@@ -107,8 +105,11 @@ int main() {
     Grafo grafo(numNodos);
     grafo.generarNodosAleatorios(anchoVentana, altoVentana);
     grafo.generarArcos(distanciaMax, maxVecinos);
-    cout << "Grafo generado: " << grafo.getCantidadNodos()
-        << " nodos, " << grafo.getCantidadArcos() << " arcos." << endl;
+    cout << "Grafo generado: " << grafo.getCantidadNodos() << endl;
+    cout << "\n----------CONTROLES----------:\n";
+    cout << "B (BFS) | F (DFS) | D (Dijkstra)\n";
+    cout << "P (Prim) | K (Kruskal) | C (Limpiar)\n";
+    cout << "----------------------------- " << endl;
 
     // Ventana SFML
     sf::Font font;
@@ -152,7 +153,6 @@ int main() {
                         }
                     }
                     if (!nodoSeleccionadoFlag) {
-                        coloresNodos.clear();
                         arcosResaltados.clear();
                         hayResultado = false;
                     }
@@ -196,10 +196,9 @@ int main() {
                     arcosResaltados.clear();
                     arbol.goToStart();
                     while (!arbol.atEnd()) {
-                        arcosResaltados.push_back(arbol.getElement());
+                        arcosResaltados.append(arbol.getElement());
                         arbol.next();
                     }
-                    coloresNodos.clear(); // No coloreamos nodos
                     hayResultado = true;
                     delete orden;
                 }
@@ -217,15 +216,14 @@ int main() {
                     arcosResaltados.clear();
                     arbol.goToStart();
                     while (!arbol.atEnd()) {
-                        arcosResaltados.push_back(arbol.getElement());
+                        arcosResaltados.append(arbol.getElement());
                         arbol.next();
                     }
-                    coloresNodos.clear();
                     hayResultado = true;
                     delete orden;
                 }
                 // Tecla D: Dijkstra
-                if (keyPressed->code == sf::Keyboard::Key::D) {
+                else if (keyPressed->code == sf::Keyboard::Key::D) {
                     if (!nodoDestinoFlag) {
                         cout << "Primero selecciona un destino con clic derecho." << endl;
                         continue;
@@ -238,12 +236,14 @@ int main() {
                     arcosResaltados.clear();
                     camino.goToStart();
                     while (!camino.atEnd()) {
-                        arcosResaltados.push_back(camino.getElement());
+                        arcosResaltados.append(camino.getElement());
                         camino.next();
                     }
-                    coloresNodos.clear();
                     hayResultado = true;
-                    cout << "Distancia total: " << dist[nodoDestino] << endl;
+                    if (dist[nodoDestino] >= 1e9)
+                        cout << "No existe camino." << endl;
+                    else
+                        cout << "Distancia total: " << dist[nodoDestino] << endl;
                     delete[] dist;
                     delete[] padre;
                 }
@@ -255,26 +255,36 @@ int main() {
                     arcosResaltados.clear();
                     arbol.goToStart();
                     while (!arbol.atEnd()) {
-                        arcosResaltados.push_back(arbol.getElement());
+                        arcosResaltados.append(arbol.getElement());
                         arbol.next();
                     }
-                    coloresNodos.clear();
                     hayResultado = true;
-                    cout << "Prim completado. Arcos en el arbol: " << arcosResaltados.size() << endl;
+                    cout << "Prim completado. Arcos en el arbol: " << arcosResaltados.getSize() << endl;
+                }
+                // Tecla K: Kruskal
+                else if (keyPressed->code == sf::Keyboard::Key::K) {
+                    LinkedList<Arco> mst;
+                    Algoritmos::Kruskal(grafo, mst);
+                    arcosResaltados.clear();
+                    mst.goToStart();
+                    while (!mst.atEnd()) {
+                        arcosResaltados.append(mst.getElement());
+                        mst.next();
+                    }
+                    hayResultado = true;
+                    cout << "Kruskal completado." << endl;
                 }
                 // Tecla C: Limpiar resultados
                 else if (keyPressed->code == sf::Keyboard::Key::C) {
-                    coloresNodos.clear();
                     arcosResaltados.clear();
                     hayResultado = false;
                     cout << "Resultados visuales limpiados." << endl;
                 }
             }
         }
-
         // Dibujar
         window.clear(sf::Color::Black);
-        dibujarGrafo(window, grafo, font, coloresNodos, arcosResaltados);
+        dibujarGrafo(window, grafo, font, arcosResaltados);
         window.display();
     }
     cout << "Gracias por usar el programa :)";

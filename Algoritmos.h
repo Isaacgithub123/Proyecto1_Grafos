@@ -9,9 +9,26 @@
 #include <iostream>
 
 class Algoritmos {
+private:
+
+    // auxiliares para kruskal
+
+     static int find(int* padre, int x) {
+        while (padre[x] != x) {
+            x = padre[x];
+        }
+        return x;
+    }
+
+     static void unir(int* padre, int a, int b) {
+        int raizA = find(padre, a);
+        int raizB = find(padre, b);
+        if (raizA != raizB) {
+            padre[raizB] = raizA;
+        }
+    }
 public:
-    // ===== BFS =====
-    // Devuelve el orden de visita en un ArrayList<int> y llena 'arbol' con los arcos usados para descubrir nodos.
+    // BFS
     static ArrayList<int>* BFS(Grafo& g, int inicio, LinkedList<Arco>& arbol) {
         ArrayList<int>* orden = new ArrayList<int>(g.getCantidadNodos());
         g.limpiarVisitados();
@@ -37,7 +54,7 @@ public:
         return orden;
     }
 
-    // ===== DFS =====
+    // DFS
     static ArrayList<int>* DFS(Grafo& g, int inicio, LinkedList<Arco>& arbol) {
         ArrayList<int>* orden = new ArrayList<int>(g.getCantidadNodos());
         g.limpiarVisitados();
@@ -62,7 +79,7 @@ public:
         }
         return orden;
     }
-
+    // Dijkstra
     static void Dijkstra(Grafo& g, int inicio, int destino,
         LinkedList<Arco>& camino,
         double*& dist, int*& padre) {
@@ -71,22 +88,18 @@ public:
         padre = new int[n];
         bool* visitado = new bool[n];
         for (int i = 0; i < n; ++i) {
-            dist[i] = 1e9;
+            dist[i] = 1e9; // inician en infinito
             padre[i] = -1;
             visitado[i] = false;
         }
         dist[inicio] = 0.0;
-
         MinHeap<Pair<double, int>> heap(n * n); // tamaño máximo estimado
         heap.insert(Pair<double, int>(0.0, inicio));
-
         while (heap.getSize() > 0) {
             Pair<double, int> actual = heap.removeFirst();
-            double d = actual.key;
             int u = actual.value;
             if (visitado[u]) continue;
             visitado[u] = true;
-
             LinkedList<Pair<int, double>>* vecinos = g.getVecinos(u);
             vecinos->goToStart();
             while (!vecinos->atEnd()) {
@@ -139,14 +152,12 @@ public:
         dist[inicio] = 0.0;
         MinHeap<Pair<double, int>> heap(n * n);
         heap.insert(Pair<double, int>(0.0, inicio));
-
         while (heap.getSize() > 0) {
             Pair<double, int> actual = heap.removeFirst();
-            double d = actual.key;
             int u = actual.value;
-            if (incluido[u]) continue;
+            if (incluido[u]) 
+                continue;
             incluido[u] = true;
-
             if (padre[u] != -1) {
                 double peso = 0;
                 LinkedList<Pair<int, double>>* vecinos = g.getVecinos(u);
@@ -176,14 +187,42 @@ public:
                 vecinos->next();
             }
         }
-
         delete[] dist;
         delete[] padre;
         delete[] incluido;
     }
 
-    // ===== KRUSKAL =====
+    // KRUSKAL 
     static void Kruskal(Grafo& g, LinkedList<Arco>& arbol) {
-
+        arbol.clear();
+        int n = g.getCantidadNodos();
+        int* padre = new int[n];
+        for (int i = 0; i < n; i++) {
+            padre[i] = i;
+        }
+        // Heap con todos los arcos
+        MinHeap<Arco> heap(g.getCantidadArcos());
+        List<Arco>* arcos = g.getArcos();
+        arcos->goToStart();
+        while (!arcos->atEnd()) {
+            heap.insert(arcos->getElement());
+            arcos->next();
+        }
+        int arcosAgregados = 0;
+        while (heap.getSize() > 0 &&
+            arcosAgregados < n - 1) {
+            Arco actual = heap.removeFirst();
+            int origen = actual.origen;
+            int destino = actual.destino;
+            int raizOrigen = find(padre, origen);
+            int raizDestino = find(padre, destino);
+            // Si pertenecen a conjuntos distintos
+            if (raizOrigen != raizDestino) {
+                arbol.append(actual);
+                unir(padre, raizOrigen, raizDestino);
+                arcosAgregados++;
+            }
+        }
+        delete[] padre;
     }
 };
