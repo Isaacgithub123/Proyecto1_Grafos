@@ -1,3 +1,14 @@
+// Archivo: Algoritmos.h 
+// Autores: Emilio, Isaac, Maria Celeste
+// Descripción: Clase que encapsula la implementación de los algoritmos
+// de la teoría de grafos solicitados en el proyecto.
+// Funcionalidades principales:
+//  - Búsqueda en Anchura (BFS) para generar árboles de expansión.
+//  - Búsqueda en Profundidad (DFS) para generar árboles de expansión.
+//  - Algoritmo de Prim para encontrar el árbol de expansión mínima (MST).
+//  - Algoritmo de Kruskal para el bosque de expansión mínima.
+//  - Algoritmo de Dijkstra para el cálculo de la ruta más corta entre dos nodos.
+
 #pragma once
 #include "Grafo.h"
 #include "ArrayList.h"
@@ -12,7 +23,6 @@ class Algoritmos {
 private:
 
     // auxiliares para kruskal
-
      static int find(int* padre, int x) {
         while (padre[x] != x) {
             x = padre[x];

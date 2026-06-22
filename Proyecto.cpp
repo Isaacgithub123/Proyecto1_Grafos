@@ -1,3 +1,15 @@
+// Archivo: Proyecto.cpp 
+// Autores: Emilio, Isaac, Maria Celeste
+// Descripción: Punto de entrada principal de la aplicación de visualización de grafos.
+// Gestiona el ciclo de vida de la ventana gráfica utilizando la biblioteca SFML 
+// y coordina la generación del grafo y la interacción con el usuario.
+// Funcionalidades principales:
+//  - Inicializar la ventana de renderizado de SFML.
+//  - Generar un grafo aleatorio basado en parámetros configurables (nodos, distancia, conexiones). 
+//  - Capturar eventos del ratón para seleccionar nodos de inicio y fin (clic izquierdo/derecho).
+//  - Invocar los algoritmos de búsqueda y rutas mínimas.
+//  - Renderizar los nodos y arcos, resaltando visualmente los resultados de los algoritmos.
+
 #include <iostream>
 #include <ctime>
 #include <string>

@@ -1,3 +1,12 @@
+
+// Archivo: LinkedQueue.h
+// Autores: Hecho en clase
+// Descripción: Implementación de una cola (FIFO) utilizando nodos enlazados y un nodo centinela.
+// Funcionalidades principales:
+//  - Encolar (enqueue) y desencolar (dequeue) elementos de forma eficiente.
+//  - Estructura fundamental para la ejecución del algoritmo de Búsqueda en Anchura (BFS).
+
+
 #pragma once
 #include <iostream>
 #include <stdexcept>

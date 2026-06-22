@@ -1,3 +1,11 @@
+
+// Archivo: Node.h
+// Autores: Hecho en clase
+// Descripción: Estructura de nodo base para las implementaciones de listas y estructuras enlazadas.
+// Funcionalidades principales:
+//  - Almacenar el elemento de datos (template genérico).
+//  - Mantener un puntero al siguiente nodo en la estructura enlazada.
+
 #pragma once
 
 template <typename E>

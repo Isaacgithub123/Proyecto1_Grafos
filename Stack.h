@@ -1,3 +1,11 @@
+
+// Archivo: Stack.h
+// Autores: Hecho en clase
+// Descripción: Interfaz abstracta para la estructura de datos de pila (LIFO).
+// Funcionalidades principales:
+//  - Definir operaciones básicas de pila: push, pop, topValue, isEmpty, getSize.
+//  - Establecer el contrato para la implementación LinkedStack.
+
 #pragma once
 
 template <typename E>

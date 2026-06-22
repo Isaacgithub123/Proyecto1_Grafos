@@ -1,3 +1,11 @@
+
+// Archivo: LinkedStack.h
+// Autores: Hecho en clase
+// Descripción: Implementación de una pila (LIFO) utilizando nodos enlazados.
+// Funcionalidades principales:
+//  - Apilar (push) y desapilar (pop) elementos.
+//  - Estructura fundamental para la ejecución del algoritmo de Búsqueda en Profundidad (DFS).
+
 #pragma once
 
 #include <stdexcept>

@@ -160,8 +160,6 @@
     <ClInclude Include="Algoritmos.h" />
     <ClInclude Include="Arco.h" />
     <ClInclude Include="ArrayList.h" />
-    <ClInclude Include="BSTNode.h" />
-    <ClInclude Include="BSTree.h" />
     <ClInclude Include="GNode.h" />
     <ClInclude Include="Grafo.h" />
     <ClInclude Include="LinkedList.h" />

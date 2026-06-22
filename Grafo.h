@@ -1,3 +1,13 @@
+// Archivo: Grafo.h
+// Autores: Emilio, Isaac, Maria Celeste
+// Descripción: Estructura de datos principal que representa un grafo no dirigido y etiquetado
+// mediante una lista de adyacencia optimizada.
+// Funcionalidades principales:
+//  - Almacenar una colección de nodos con posiciones espaciales (X, Y).
+//  - Gestionar las conexiones (arcos) entre nodos y sus pesos (distancias).
+//  - Brindar métodos para acceder a los vecinos de un nodo de forma eficiente.
+//  - Controlar el estado de "visitado" de los nodos para los algoritmos de recorrido.
+
 #pragma once
 #include <stdexcept>
 #include <iostream>

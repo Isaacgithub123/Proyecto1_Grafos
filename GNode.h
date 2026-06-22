@@ -1,3 +1,12 @@
+// Archivo: GNode.h
+// Autores: Emilio, Isaac, Maria Celeste
+// Descripción: Clase que representa un vértice o nodo dentro del grafo. Almacena la información
+// necesaria para la representación espacial y lógica.
+// Funcionalidades principales:
+//  - Almacenar el identificador único del nodo.
+//  - Guardar coordenadas cartesianas (X, Y) para su dibujo en pantalla.
+//  - Mantener banderas de estado (como 'visited') para facilitar los recorridos.
+
 #pragma once
 
 class GNode {

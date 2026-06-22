@@ -1,3 +1,13 @@
+
+// Archivo: MinHeap.h
+// Autores: Emilio, Isaac, Maria Celeste
+// Descripción: Árbol binario completo representado en un arreglo que mantiene la propiedad de
+// rapido acceso al elemento menor.
+// Funcionalidades principales:
+//  - Inserción y extracción del elemento con menor prioridad/peso.
+//  - Reestructuración automática (sift-up/sift-down) para mantener el orden.
+//  - Crucial para la eficiencia de Prim, Kruskal y Dijkstra.
+
 #pragma once
 #include <stdexcept>
 #include <iostream>

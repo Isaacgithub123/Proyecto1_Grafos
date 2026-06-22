@@ -1,3 +1,11 @@
+
+// Archivo: Queue.h
+// Autores: Hecho en clase
+// Descripción: Interfaz abstracta para la estructura de datos de cola (FIFO).
+// Funcionalidades principales:
+//  - Definir operaciones básicas de cola: enqueue, dequeue, frontValue, isEmpty, getSize.
+//  - Establecer el contrato para la implementación LinkedQueue.
+
 #pragma once
 template<typename E>
 class Queue {

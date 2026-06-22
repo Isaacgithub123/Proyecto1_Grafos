@@ -1,3 +1,21 @@
+// Archivo: List.h
+// Autores: Hecho en clase
+//
+// Descripción:
+// Interfaz abstracta para estructuras de listas genéricas.
+// Define las operaciones básicas que deben implementar las
+// distintas estructuras de listas del proyecto.
+//
+// Funcionalidades principales:
+// - Insertar y agregar elementos.
+// - Eliminar y obtener elementos.
+// - Recorrer la lista.
+// - Consultar tamaño y posición.
+// - Limpiar y mostrar elementos.
+//
+// Esta interfaz es implementada por estructuras como ArrayList
+// y LinkedList.
+
 #pragma once
 
 template <typename E>

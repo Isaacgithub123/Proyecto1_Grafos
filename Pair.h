@@ -1,7 +1,13 @@
+// Archivo: Pair.h
+// Autores: Emilio, Isaac, Maria Celeste
+// Descripción: Clase que agrupa dos elementos (llave y valor).
+// Funcionalidades principales:
+//  - Almacenar asociaciones (ej: ID de vecino y peso del arco).
+//  - Proveer operadores de comparación basados en la llave para ordenar elementos.
+
 #pragma once
 #include <stdexcept>
 #include <iostream>
-#define DEFAULT_MAX 1024
 
 using std::ostream;
 using std::cout;
