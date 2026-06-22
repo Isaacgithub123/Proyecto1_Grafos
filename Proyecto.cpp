@@ -20,9 +20,8 @@
 
 using namespace std;
 
-// Variables globales para 
+// Variables globales
 LinkedList<Arco> arcosResaltados;
-bool hayResultado = false;
 int nodoOrigen = -1;
 
 // Función para dibujar el grafo 
@@ -47,7 +46,7 @@ void dibujarGrafo(sf::RenderWindow& window, Grafo& grafo,
     }
     window.draw(lineas);
     // Dibujar arcos resaltados (si hay)
-    if (arcosExtra.getSize() > 0) {  // <--- CORREGIDO
+    if (arcosExtra.getSize() > 0) {  
         sf::VertexArray lineasResaltadas(sf::PrimitiveType::Lines);
         // Recorrer la LinkedList manualmente (no tiene iteradores)
         LinkedList<Arco>* lista = const_cast<LinkedList<Arco>*>(&arcosExtra);
@@ -166,7 +165,6 @@ int main() {
                     }
                     if (!nodoSeleccionadoFlag) {
                         arcosResaltados.clear();
-                        hayResultado = false;
                     }
                 }
                 else if (mousePressed->button == sf::Mouse::Button::Right) {
@@ -198,7 +196,7 @@ int main() {
                     cout << "Ejecutando BFS desde nodo " << origen << endl;
                     LinkedList<Arco> arbol;
                     ArrayList<int>* orden = Algoritmos::BFS(grafo, origen, arbol);
-                    // Mostrar orden en consola (opcional)
+                    // Mostrar orden en consola
                     cout << "Orden BFS: ";
                     for (int i = 0; i < orden->getSize(); ++i) {
                         orden->goToPos(i);
@@ -211,7 +209,6 @@ int main() {
                         arcosResaltados.append(arbol.getElement());
                         arbol.next();
                     }
-                    hayResultado = true;
                     delete orden;
                 }
                 // Tecla F: DFS 
@@ -231,7 +228,6 @@ int main() {
                         arcosResaltados.append(arbol.getElement());
                         arbol.next();
                     }
-                    hayResultado = true;
                     delete orden;
                 }
                 // Tecla D: Dijkstra
@@ -251,7 +247,6 @@ int main() {
                         arcosResaltados.append(camino.getElement());
                         camino.next();
                     }
-                    hayResultado = true;
                     if (dist[nodoDestino] >= 1e9)
                         cout << "No existe camino." << endl;
                     else
@@ -270,7 +265,6 @@ int main() {
                         arcosResaltados.append(arbol.getElement());
                         arbol.next();
                     }
-                    hayResultado = true;
                     cout << "Prim completado. Arcos en el arbol: " << arcosResaltados.getSize() << endl;
                 }
                 // Tecla K: Kruskal
@@ -283,13 +277,11 @@ int main() {
                         arcosResaltados.append(mst.getElement());
                         mst.next();
                     }
-                    hayResultado = true;
                     cout << "Kruskal completado." << endl;
                 }
                 // Tecla C: Limpiar resultados
                 else if (keyPressed->code == sf::Keyboard::Key::C) {
                     arcosResaltados.clear();
-                    hayResultado = false;
                     cout << "Resultados visuales limpiados." << endl;
                 }
             }

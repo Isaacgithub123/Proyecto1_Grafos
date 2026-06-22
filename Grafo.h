@@ -82,17 +82,7 @@ public:
         vecinos->append(Pair<int, double>(nOrigen, peso));
         arcos->append(Arco(nOrigen, nDestino, peso));
     }
-    bool existeArco(int origen, int destino) {
-        LinkedList<Pair<int, double>>* vecinos = getVecinos(origen);
-        vecinos->goToStart();
-        while (!vecinos->atEnd()) {
-            Pair<int, double> p = vecinos->getElement();
-            if (p.key == destino)
-                return true;
-            vecinos->next();
-        }
-        return false;
-    }
+
     void agregarNodo(GNode nodo) {
         nodos->append(nodo);
     }

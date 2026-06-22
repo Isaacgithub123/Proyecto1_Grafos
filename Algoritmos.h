@@ -55,7 +55,7 @@ public:
                 int v = p.key;
                 if (!g.visitado(v)) {
                     g.marcarVisitado(v);
-                    arbol.append(Arco(actual, v, 0.0));   // arco de descubrimiento
+                    arbol.append(Arco(actual, v, 0.0)); 
                     cola.enqueue(v);
                 }
                 vecinos->next();
