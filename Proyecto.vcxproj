@@ -122,6 +122,9 @@
     <Manifest>
       <EnableSegmentHeap>true</EnableSegmentHeap>
     </Manifest>
+    <PostBuildEvent>
+      <Command>xcopy /Y "$(ProjectDir)external\SFML\bin\*.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -146,6 +149,9 @@
     <PreBuildEvent>
       <Command>xcopy /Y "$(ProjectDir)external\SFML\bin\*.dll" "$(OutDir)"</Command>
     </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>xcopy /Y "$(ProjectDir)external\SFML\bin\*.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Proyecto.cpp" />
